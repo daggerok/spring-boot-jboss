@@ -1,0 +1,28 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.5.RELEASE")
+    }
+}
+
+apply plugin: "java"
+apply plugin: "spring-boot"
+apply plugin: "war"
+
+version = "1.0"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web",
+            "org.springframework.boot:spring-boot-starter-data-jpa",
+            "com.h2database:h2:1.4.187"
+
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+
+    providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
+}
