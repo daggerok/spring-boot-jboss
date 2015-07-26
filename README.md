@@ -4,7 +4,8 @@ Spring Boot on JBoss container
 2. folow these steps:
 ```shell
 $ git clone --depth=1 https://github.com/daggerok/spring-boot-jboss.git jboss-boot
-$ cd jboss-boot && gradle build
+$ cd jboss-boot
+$ gradle build
 $ cp build/libs/spring-boot-jboss-1.0.war.original ~/jboss-eap-6.4/standalone/deployments/spring-boot-jboss-1.0.war
 $ ~/jboss-eap-6.4/bin/standalone.sh 
 ```
