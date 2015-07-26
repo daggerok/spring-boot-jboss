@@ -12,7 +12,6 @@ $ ~/jboss-eap-6.4/bin/standalone.sh
 
 Spring Boot Embedded container
 ==============================
-spring-boot also should work as well:
 ```shell
 $ git clone --depth=1 https://github.com/daggerok/spring-boot-jboss.git jboss-boot
 $ cd jboss-boot
