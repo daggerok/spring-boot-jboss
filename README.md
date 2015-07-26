@@ -8,4 +8,13 @@ $ cd jboss-boot && gradle build
 $ cp build/libs/spring-boot-jboss-1.0.war.original ~/jboss-eap-6.4/standalone/deployments/spring-boot-jboss-1.0.war
 $ ~/jboss-eap-6.4/bin/standalone.sh 
 ```
-6. goto http://localhost:8080/spring-boot-jboss/
+3. goto http://localhost:8080/spring-boot-jboss/
+====================
+spring-boot also should work as well:
+```shell
+$ git clone --depth=1 https://github.com/daggerok/spring-boot-jboss.git jboss-boot
+$ cd jboss-boot
+$ gradle build
+$ gradle bootRun
+```
+goto http://localhost:8080/
