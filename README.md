@@ -1,7 +1,7 @@
 Spring Boot on JBoss
 ====================
 1. download and unzip jboss-eap-6.4 for example into ~/jboss-eap-6.4/
-2. 
+2. folow these steps:
 ```shell
 $ git clone --depth=1 https://github.com/daggerok/spring-boot-jboss.git jboss-boot
 $ cd jboss-boot && gradle build
