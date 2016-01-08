@@ -1,4 +1,4 @@
-Spring Boot on JBoss container
+Spring Boot on JBoss container [![build](https://travis-ci.org/daggerok/spring-boot-jboss.svg?branch=master)](https://travis-ci.org/daggerok/spring-boot-jboss)
 ==============================
 1. download and unzip jboss-eap-6.4 for example into ~/jboss-eap-6.4/
 2. folow these steps:
