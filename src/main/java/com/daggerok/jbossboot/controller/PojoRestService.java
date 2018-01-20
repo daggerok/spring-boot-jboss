@@ -8,11 +8,11 @@ import javax.annotation.Resource;
 
 @RestController
 public class PojoRestService {
-    @Resource
-    private PojoRepository pojoRepository;
+  @Resource
+  private PojoRepository pojoRepository;
 
-    @RequestMapping("/")
-    public String sayHello() {
-        return null == pojoRepository ? "JBoss Boot" : "JBoss Boot v.1." + pojoRepository.count();
-    }
+  @RequestMapping("/")
+  public String sayHello() {
+    return null == pojoRepository ? "JBoss Boot" : "JBoss Boot v.1." + pojoRepository.count();
+  }
 }
