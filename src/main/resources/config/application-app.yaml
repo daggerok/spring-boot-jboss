@@ -1,0 +1,16 @@
+app:
+  name: ${project.name}
+  group: ${project.group}
+  version: ${project.version}
+  description: ${project.description}
+
+  # spring variable \$ symbol must be escaped when using processResources { expand(project.properties) } like so:
+  instance-id: \${random.uuid}
+
+  # security:
+  user:
+    username: admin
+    password: admin
+    roles:
+    - USER
+    - ADMIN

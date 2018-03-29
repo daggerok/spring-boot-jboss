@@ -1,31 +1,58 @@
-buildscript {
-  ext { springBootVersion = "1.3.1.RELEASE" }
-  repositories { jcenter() }
-  dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion") }
+plugins {
+  id "war"
+  id "java"
+  id "idea"
+  id "eclipse"
+  id "cn.bestwu.propdeps" version "0.0.10"
+  id "cn.bestwu.propdeps-idea" version "0.0.10"
+  id "cn.bestwu.propdeps-maven" version "0.0.10"
+  id "cn.bestwu.propdeps-eclipse" version "0.0.10"
+  id "org.springframework.boot" version "1.5.10.RELEASE"
 }
 
-apply plugin: "java"
-apply plugin: "spring-boot"
-apply plugin: "war"
-
-version = "1.0"
+group = "daggerok"
+version = "2.0.0"
+description = "Spring Boot WAR project and JBOSS application server usage"
 
 repositories {
-  jcenter()
+  mavenLocal()
+  mavenCentral()
 }
 
 dependencies {
-  compile "org.springframework.boot:spring-boot-starter-web",
-      "org.springframework.boot:spring-boot-starter-data-jpa",
-      "com.h2database:h2"
 
-  testCompile "org.springframework.boot:spring-boot-starter-test"
+  compile("org.springframework.boot:spring-boot-starter-actuator")
+  compile("org.springframework.boot:spring-boot-starter-security")
+  compile("org.springframework.boot:spring-boot-starter-web")
+  compile("org.springframework.boot:spring-boot-starter-data-jpa")
+  compile("com.h2database:h2:1.4.197")
+  //compile("org.jboss.logging:jboss-logging")
+  //compile("org.hibernate:hibernate-core")
+  //compile("org.hibernate:hibernate-entitymanager")
 
-  providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
+  compileOnly("javax.inject:javax.inject:1")
+  compileOnly("org.projectlombok:lombok:1.16.20")
+  testCompileOnly("org.projectlombok:lombok:1.16.20")
+
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+
+  providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+  providedRuntime("javax:javaee-api:7.0")
+  providedRuntime("javax.inject:javax.inject:1")
+
+  optional("org.springframework.boot:spring-boot-configuration-processor")
 }
 
+compileJava.dependsOn(processResources)
+
+processResources {
+  expand(project.properties)
+}
+
+// java 7 allowed only with gradle version < 5.0
 task wrapper(type: Wrapper) {
-  gradleVersion = "2.9"
+  gradleVersion = "4.6"
+  distributionType = "ALL"
 }
 
 defaultTasks "clean", "build"

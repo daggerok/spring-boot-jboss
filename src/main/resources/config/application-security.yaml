@@ -1,0 +1,10 @@
+security:
+  basic:
+    enabled: false
+  user:
+    name: admin
+    password: admin
+    role:
+    - USER
+    - ADMIN
+  authorize-mode: role
