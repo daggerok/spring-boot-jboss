@@ -3,13 +3,11 @@ env:
     TERM=dumb
 
 language: java
-jdk: oraclejdk7
-#jdk: openjdk7
 
 install: true
 before_install:
 - sudo apt update -y >/dev/null 2>&1 || true
-- sudo apt install --no-install-recommends -y wget curl python-pip docker-ce >/dev/null 2>&1
+- sudo apt install --no-install-recommends -y curl python-pip docker-ce >/dev/null 2>&1
 - sudo pip install httpie >/dev/null 2>&1
 - sudo update-ca-certificates -f
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
