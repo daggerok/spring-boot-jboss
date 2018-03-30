@@ -4,5 +4,6 @@ spring:
     - server
     - db
     - app
+    - logs
     - actuator
 #    - security

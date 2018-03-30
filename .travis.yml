@@ -16,7 +16,6 @@ before_install:
 script:
 
 # spring-boot
-- bash gradlew clean
 - bash gradlew >/dev/null 2>&1
 - ls -lah ./
 - ls -lah ./build/
