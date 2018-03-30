@@ -16,3 +16,6 @@ spring:
     jpa:
       repositories:
         enabled: true
+  output:
+    ansi:
+      enabled: always
