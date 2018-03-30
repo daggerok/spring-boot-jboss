@@ -11,6 +11,7 @@ before_install:
 - sudo apt update -y >/dev/null 2>&1 || true
 - sudo apt install --no-install-recommends -y curl python-pip docker-ce >/dev/null 2>&1
 - sudo pip install httpie >/dev/null 2>&1
+- sudo update-ca-certificates -f
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
 - stop_any 5432 5672 27017 8080 80
 
