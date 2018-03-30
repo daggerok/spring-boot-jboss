@@ -1,8 +1,20 @@
-server:
-  port: 8080
+---
+# default profile
 spring:
+  profiles: default
+  profiles.include: server,data,app,spring-ds
+
+---
+# jboss profile
+spring:
+  profiles: jboss
+  profiles.include: jboss-ds,server,data,app
+
+---
+spring:
+  profiles: spring-ds
   datasource:
-    url: jdbc:h2:mem:test
+    url: jdbc:h2:mem:test;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password:
     driver-class-name: org.h2.Driver
@@ -12,7 +24,43 @@ spring:
       hibernate.dialect: org.hibernate.dialect.H2Dialect
       hibernate.hbm2ddl.auto: create-drop
       hibernate.ejb.naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+
+---
+spring:
+  profiles: jboss-ds
+  datasource:
+    driver-class-name: org.h2.Driver
+    jndi-name: java:jboss/datasources/ExampleDS
+  jpa:
+    show-sql: false
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+
+---
+spring:
+  profiles: data
   data:
     jpa:
       repositories:
         enabled: true
+
+---
+spring:
+  profiles: server
+  output:
+    ansi:
+      enabled: always
+server:
+  port: 8080
+
+---
+spring:
+  profiles: app
+app:
+  random:
+    just.string: 'just string'
+    bignumber: \${random.long}
+    value: \${random.value}
+    number: \${random.int}
+    number.less.than.ten: \${random.int(10)}
+    number.in.range: \${random.int[1024,65536]}

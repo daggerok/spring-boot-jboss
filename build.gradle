@@ -1,17 +1,36 @@
 buildscript {
-  ext { springBootVersion = "1.3.1.RELEASE" }
-  repositories { jcenter() }
-  dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion") }
+  ext {
+    springBootVersion = "1.3.8.RELEASE"
+  }
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+  dependencies {
+    classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
+  }
 }
 
-apply plugin: "java"
-apply plugin: "spring-boot"
-apply plugin: "war"
+plugins {
+  id "war"
+  id "java"
+  id "idea"
+  id "eclipse"
+  id "cn.bestwu.propdeps" version "0.0.10"
+  id "cn.bestwu.propdeps-idea" version "0.0.10"
+  id "cn.bestwu.propdeps-maven" version "0.0.10"
+  id "cn.bestwu.propdeps-eclipse" version "0.0.10"
+  //id "com.avast.gradle.docker-compose" version "0.6.13" // java 1.8 runtime required
+}
 
-version = "1.0"
+apply plugin: "spring-boot"
+
+version = "1.0.1"
+sourceCompatibility = targetCompatibility = JavaVersion.VERSION_1_7
 
 repositories {
-  jcenter()
+  mavenLocal()
+  mavenCentral()
 }
 
 dependencies {
@@ -22,10 +41,60 @@ dependencies {
   testCompile "org.springframework.boot:spring-boot-starter-test"
 
   providedRuntime "org.springframework.boot:spring-boot-starter-tomcat"
+  providedCompile "javax:javaee-api:7.0"
+  //providedCompile "javax.inject:javax.inject:1"
+  //runtime "javax:javaee-api:7.0"
+
+  optional "org.springframework.boot:spring-boot-configuration-processor"
+}
+
+defaultTasks "clean", "build"
+
+compileJava.dependsOn(processResources)
+
+processResources {
+  expand(project.properties)
+}
+
+// ./gradlew -PspringBoot.executable=true
+def buildBashScript = project.hasProperty("springBoot.executable") && project.getProperty("springBoot.executable")
+
+springBoot {
+  executable = buildBashScript
 }
 
 task wrapper(type: Wrapper) {
   gradleVersion = "2.9"
 }
 
-defaultTasks "clean", "build"
+idea {
+  module {
+    downloadSources = true
+  }
+}
+
+eclipse {
+  classpath {
+    downloadSources = true
+  }
+}
+
+/*
+def profile = project.hasProperty("profile") ? "-${project.getProperty("profile")}" : ""
+
+dockerCompose {
+  useComposeFiles = [project.file("docker-compose${profile}.yaml")]
+  // captureContainersOutput = true
+  captureContainersOutput = false
+  stopContainers = true
+  removeContainers = true
+  removeImages = "Local"
+  removeVolumes = true
+  removeOrphans = true
+  forceRecreate = true
+  waitForTcpPorts = false
+  projectName = project.name
+}
+
+composeUp.dependsOn assemble
+*/

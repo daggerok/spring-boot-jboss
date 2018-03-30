@@ -1,14 +1,15 @@
-package com.daggerok.jbossboot.config;
+package daggerok.war;
 
-import com.daggerok.jbossboot.Application;
+import daggerok.Application;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class Initializer extends SpringBootServletInitializer {
+public class WarInitializer extends SpringBootServletInitializer {
+
   @Override
-  protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+  protected SpringApplicationBuilder configure(final SpringApplicationBuilder application) {
     return application.sources(Application.class);
   }
 }
