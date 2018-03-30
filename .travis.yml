@@ -1,31 +1,31 @@
-sudo: required
-group: travis_lts
-
 env:
   global:
     TERM=dumb
 
 language: java
-jdk:
-- openjdk8
-- oraclejdk8
+jdk: oraclejdk8
 
 install: true
 before_install:
-- sudo apt update -y || true
-- sudo apt install -y curl python-pip docker-ce
-- sudo pip install httpie
+- sudo apt update -y >/dev/null 2>&1 || true
+- sudo apt install --no-install-recommends -y curl python-pip docker-ce >/dev/null 2>&1
+- sudo pip install httpie >/dev/null 2>&1
 - source <(curl -s https://raw.githubusercontent.com/daggerok/bash-functions/master/main.bash)
-- stop_any 5432 5672 27017 8080
+- stop_any 5432 5672 27017 8080 80
 
 script:
-- bash gradlew
+
+# spring-boot
+- bash gradlew >/dev/null 2>&1
+- java -jar build/libs/*.war &
+- wait_for 8080
+- http :8080/
+- stop_any 8080 80
+
+# JBOSS (docker)
+- bash gradlew >/dev/null 2>&1
 - docker-compose build --force-rm --no-cache --pull
 - docker-compose up --build --force-recreate --remove-orphans &
 - sleep 35
 - http :8080/spring-boot-jboss/
 - docker-compose down -v
-
-cache:
-  directories:
-  - $HOME/.gradle
