@@ -3,8 +3,8 @@ env:
     TERM=dumb
 
 language: java
-#jdk: oraclejdk7
-jdk: openjdk7
+jdk: oraclejdk7
+#jdk: openjdk7
 
 install: true
 before_install:
